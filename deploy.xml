@@ -151,6 +151,10 @@
             <rhq:file name="configuration/jdg-site-1.xml" destinationFile="${rhq.deploy.dir}/jboss-datagrid-6.2.0-server/standalone/configuration/jdg-site-1.xml" replace="true" />
             <rhq:file name="configuration/jdg-site-2.xml" destinationFile="${rhq.deploy.dir}/jboss-datagrid-6.2.0-server/standalone/configuration/jdg-site-2.xml" replace="true" />
             
+            <rhq:file name="scripts/pump-data-into-site1-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site1-via-hotrod.sh" replace="true" />
+            <rhq:file name="scripts/pump-data-into-site2-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site2-via-hotrod.sh" replace="true" />
+            <rhq:file name="binaries/hotrod-demo.jar" destinationFile="${rhq.deploy.dir}/runtime/hotrod-demo.jar"/>
+            
             <rhq:file name="scripts/start-site1-eap6.sh" destinationFile="${rhq.deploy.dir}/scripts/start-site1-eap6.sh" replace="true" />
             <rhq:file name="scripts/stop-site1-eap6.sh" destinationFile="${rhq.deploy.dir}/scripts/stop-site1-eap6.sh" replace="true" />
             <rhq:file name="properties/site1-eap6.properties" destinationFile="${rhq.deploy.dir}/properties/site1-eap6.properties" replace="true" />    
@@ -176,9 +180,16 @@
         </rhq:deployment-unit>
     </rhq:bundle>
 
-    <target name="preinstall">        
+    <target name="preinstall">
+        <echo>Downloading the shared cross-site-required-archives.zip into ${rhq.deploy.dir}/binaries</echo>
+        <get src="https://docs.google.com/uc?export=download&amp;id=0BxJhoZ1V34QHZ1Fpek9mU0Z1Smc"
+            verbose="true" 
+            usetimestamp="true"
+            skipexisting="true"
+            dest="binaries/cross-site-required-archives.zip"/>            
+        <unzip src="binaries/cross-site-required-archives.zip" dest="binaries"/>
     </target>
-
+    
     <target name="postinstall">
         <copy file="binaries/jdg-visualizer.war" todir="${rhq.deploy.dir}/jboss-eap-6.2/standalone/deployments"/>
         <touch file="${rhq.deploy.dir}/jboss-eap-6.2/standalone/deployments/jdg-visualizer.war.dodeploy"/>
