@@ -5,10 +5,10 @@ This demo allows you to quickly put together two sites (and their associated clu
 
 Quick Index|
 ------------
-1. [Prerequisites](https://github.com/vbchin2/cross-datacenter-replication/edit/master/README.md#prerequisites)|
-2. [Pre-Installation Checks on VMs](https://github.com/vbchin2/cross-datacenter-replication/edit/master/README.md#pre-installation-checks-on-vms)|
-3. [Installation](https://github.com/vbchin2/cross-datacenter-replication/edit/master/README.md#installation)|
-4. [Testing](https://github.com/vbchin2/cross-datacenter-replication/edit/master/README.md#testing)|
+1. [Prerequisites](https://github.com/vbchin2/cross-datacenter-replication#prerequisites)|
+2. [Pre-Installation Checks on VMs](https://github.com/vbchin2/cross-datacenter-replication#pre-installation-checks-on-vms)|
+3. [Installation](https://github.com/vbchin2/cross-datacenter-replication#installation)|
+4. [Testing](https://github.com/vbchin2/cross-datacenter-replication#testing)|
 
 Prerequisites 
 -------------
@@ -93,7 +93,7 @@ Testing
 4. __Start the EAP on the machine hosting Site 2__ 
 			
 		./start-site2-eap6.sh
-	After waiting for about 10 seconds access the URL to the visualizer  bound to Site 2. Assuming you didn't change the optional properties the URL should be: [http://127.0.0.1:8180/jdg-visualizer](http://127.0.0.1:8180/jdg-visualizer) (*replace 127.0.0.1 with the actual IP address for Site 1*)
+	After waiting for about 10 seconds access the URL to the visualizer  bound to Site 2. Assuming you didn't change the optional properties the URL should be: [http://127.0.0.1:8180/jdg-visualizer](http://127.0.0.1:8180/jdg-visualizer) (*replace 127.0.0.1 with the actual IP address for Site 2*)
 	
 	*Proceed to the next steps only if you are able to see three floating __YELLOW__ spheres.* 
 
