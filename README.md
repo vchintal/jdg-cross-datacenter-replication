@@ -13,21 +13,26 @@ Quick Index|
 Prerequisites 
 -------------
 
-* Single platform VM or Two platform VMs as per the requirement
+* Single platform VM or Two platform VMs as per the requirement. Currently the embedded scripts support only Unix/Linux kind environments. Support for Windows will be included only on popular demand.
 * JDK/JRE 7 installed
 * Binaries for JDG 6.2 and JBoss EAP 6.2, review [README](https://github.com/vbchin2/cross-datacenter-replication/blob/master/binaries/README.md) file in the __binaries__ folder for instructions on how to obtain them
 * Web application archive (WAR) build/package of the [visual](https://github.com/vbchin2/visual) project
 * Java archive (JAR) build/package of the [hotrod-demo](https://github.com/vbchin2/hotrod-demo) project 
 
+
 Pre-Installation Checks on VMs
 ------------------------------
 
-* At least __3 GB of additional RAM__ per VM is required for the demo  
+* Ensure at least __3 GB of additional RAM__ per VM is available for the demo 
 * Make sure environment variable __JAVA_HOME__ is set and __java__ is in the __PATH__. 
 * If Linux is one of the platforms on which the demo is run, ensure that a decent value for __ulimit__ is set. If running the demo under a user account, add the line `ulimit -u 4096` in the user's ___.profile___ file	
 * If RHEL is one of the platforms check the file : `/etc/security/limits.d/90-nproc.conf` and make sure that user account under which the demo is run has the same settings as the root. You may need to create an entry for the user account if one doesn't exist already
 * The packaged Shell scripts use [screen](http://www.gnu.org/software/screen/manual/screen.html) to run processes in the background, so make sure it is installed. On RHEL or Mac type `screen` on the command-line to check if it is installed. If not installed on RHEL, run `sudo yum install screen`, provided your account is in the sudoers list
-* When running the demo on two VMs, first run the demo with firewalls disabled on both VMs. If it works with firewalls disabled and doesn't work as expected when firewalls are enabled, at least you know where the problem lies.
+* When running the demo on two VMs:   
+   * Ensure that __UDP Multicast__ is supported on the network on which the demo runs. This is critical for discovery of nodes within a cluster. [__JGroups PING__](http://www.jgroups.org/manual/html/protlist.html#PING) is the discovery protocol in use behind the scenes.
+   * Ensure that __TCP Multicast__ is supported on the network on which the demo runs. This is critical for discovery/connectivity with the other cluster in the other site. [__JGroups MPING__](http://www.jgroups.org/manual/html/protlist.html#d0e4990) is the discovery protocol in use behind the scenes.
+   * First run the demo with firewalls disabled on both VMs. If it works with firewalls disabled and doesn't work as expected when firewalls are enabled, at least you know where the problem lies.
+
 
 Installation
 ------------
