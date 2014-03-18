@@ -141,7 +141,35 @@
             required="true" 
             defaultValue="${xsite.site2.jdg3.log_name}" 
             type="string" />                                                        
-        
+
+        <rhq:input-property 
+            name="xsite.site1.backup_repl" 
+            description="Option whether the backup replication should happen SYNC or ASYNC" 
+            required="true" 
+            defaultValue="${xsite.site1.backup_repl}" 
+            type="string" />        
+
+        <rhq:input-property 
+            name="xsite.site1.backup_failure_policy" 
+            description="Option whether backup failure should be IGNORE, FAIL or WARN" 
+            required="true" 
+            defaultValue="${xsite.site1.backup_failure_policy}" 
+            type="string" />   
+
+        <rhq:input-property 
+            name="xsite.site2.backup_repl" 
+            description="Option whether the backup replication should happen SYNC or ASYNC" 
+            required="true" 
+            defaultValue="${xsite.site2.backup_repl}" 
+            type="string" />        
+
+        <rhq:input-property 
+            name="xsite.site2.backup_failure_policy" 
+            description="Option whether backup failure should be IGNORE, FAIL or WARN" 
+            required="true" 
+            defaultValue="${xsite.site2.backup_failure_policy}" 
+            type="string" />   
+			        
         <rhq:deployment-unit name="cross-datacenter-replication" preinstallTarget="preinstall" postinstallTarget="postinstall" compliance="full">
             <rhq:archive name="binaries/jboss-datagrid-6.2.0-server.zip" exploded="true"/>
             <rhq:archive name="binaries/jboss-eap-6.2.0.zip" exploded="true"/>
