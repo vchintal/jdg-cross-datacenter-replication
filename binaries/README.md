@@ -3,8 +3,8 @@ Downloading Binaries
 
 Ensure that the __four__ essential binaries exist in the __binaries__ folder of the demo project. The binaries folder structure should resemble the list below:
 
-1. [jboss-datagrid-6.2.0-server.zip](https://www.jboss.org/download-manager/content/origin/files/sha256/4f/4ff65968bcc104d0b8d5795ce4caa42f60615fca3eca8462e59fea76ed23d154/jboss-datagrid-6.2.0-server.zip)
-2. [jboss-eap-6.2.0.zip](https://www.jboss.org/download-manager/content/origin/files/sha256/62/627773f1798623eb599bbf7d39567f60941a706dc971c17f5232ffad028bc6f4/jboss-eap-6.2.0.zip)
+1. [jboss-datagrid-6.4.0-server.zip](http://www.jboss.org/download-manager/file/jboss-datagrid-6.4.0.GA.zip)
+2. [jboss-eap-6.4.0.zip](https://www.jboss.org/download-manager/file/jboss-eap-6.4.0.GA.zip)
 3. jdg-visualizer.war
 4. hotrod-demo.jar
 

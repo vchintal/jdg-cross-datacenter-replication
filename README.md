@@ -1,7 +1,7 @@
-Cross Data Center Replication with JBoss Data Grid 6.2
+Cross Data Center Replication with JBoss Data Grid 6.4
 ======================================================
 
-This demo allows you to quickly put together two sites (and their associated clusters), using __JBoss Data Grid (JDG) 6.2__, such that one acts as a backup for another for any distributed cache configured for Cross Data Center Replication.
+This demo allows you to quickly put together two sites (and their associated clusters), using __JBoss Data Grid (JDG) 6.4__, such that one acts as a backup for another for any distributed cache configured for Cross Data Center Replication.
 
 Quick Index|
 ------------
@@ -15,7 +15,7 @@ Prerequisites
 
 * Single platform VM or Two platform VMs as per the requirement. Currently the embedded scripts support only Unix/Linux kind environments. Support for Windows will be included only on popular demand.
 * JDK/JRE 7 installed
-* Binaries for JDG 6.2 and JBoss EAP 6.2, review [README](https://github.com/vbchin2/cross-datacenter-replication/blob/master/binaries/README.md) file in the __binaries__ folder for instructions on how to obtain them
+* Binaries for JDG 6.4 and JBoss EAP 6.4, review [README](https://github.com/vbchin2/cross-datacenter-replication/blob/master/binaries/README.md) file in the __binaries__ folder for instructions on how to obtain them
 * Web application archive (WAR) build/package of the [visual](https://github.com/vbchin2/visual) project
 * Java archive (JAR) build/package of the [hotrod-demo](https://github.com/vbchin2/hotrod-demo) project 
 
@@ -53,8 +53,8 @@ Installation
 3. Ensure that the __four__ essential binaries exist in the binaries folder. The binaries folder structure should resemble the list below:
 
 		cross-datacenter-replication/binaries> ls 
-				jboss-datagrid-6.2.0-server.zip
-				jboss-eap-6.2.0.zip
+				jboss-datagrid-6.4.0-server.zip
+				jboss-eap-6.4.0.zip
 				jdg-visualizer.war
 				hotrod-demo.jar
 				README.md
