@@ -64,8 +64,7 @@ Installation
 	b. Update the IP addresses of each site (VM) on which the demo is to run. To run the demo on a single VM you will give the same IP address for both sites  
 	b. Other property values can be changed as required but those are __*optional*__   
 5. Using the Unix/Linux command-line run the following commands:
-      
-		cd scripts
+  
 		./install.sh
 6. If you are using a single VM for the demo *(implied here is that you provided the same IP for both sites in deployment.properties file)*, __Site 2 JDG cluster__ would also run on the same VM and hence no further steps are required and you are done with installation 
 7. If you are running the demo using two VMs. Repeat steps 1 thru 5 on the second machine/VM hosting __Site 2 JDG cluster__
