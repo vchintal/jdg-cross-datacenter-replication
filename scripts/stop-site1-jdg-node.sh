@@ -3,7 +3,7 @@ export NODEID=$1
 export IP=@@xsite.site1.ip@@
 export OFFSETS=(@@xsite.site1.jdg1.offset@@ @@xsite.site1.jdg2.offset@@ @@xsite.site1.jdg3.offset@@)
 export OFFSET=${OFFSETS[$NODEID]}
-export EAP_HOME=@@rhq.deploy.dir@@/jboss-eap-6.4
+export EAP_HOME=@@rhq.deploy.dir@@/@@eap.folder.name@@
 
 
 ((MGMT_PORT = 9999 + OFFSET))

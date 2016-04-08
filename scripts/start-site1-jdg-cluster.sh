@@ -1,5 +1,5 @@
 export IP=@@xsite.site1.ip@@
-export DG_HOME=@@rhq.deploy.dir@@/jboss-datagrid-6.4.0-server
+export DG_HOME=@@rhq.deploy.dir@@/@@jdg.folder.name@@
 
 for i in {1..3}; do 
 	echo ">> Starting JBoss Data Grid Node $i in Site 1"     

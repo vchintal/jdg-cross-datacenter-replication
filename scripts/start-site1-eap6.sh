@@ -1,7 +1,7 @@
 export IP=@@xsite.site1.ip@@
 export OFFSET=@@xsite.site1.eap.offset@@
-export EAP_HOME=@@rhq.deploy.dir@@/jboss-eap-6.4
-export CONFIG_HOME=@@rhq.deploy.dir@@/runtime/eap6-standalone
+export EAP_HOME=@@rhq.deploy.dir@@/@@eap.folder.name@@
+export CONFIG_HOME=@@rhq.deploy.dir@@/runtime/site1-eap6-standalone
 
 ((JDG1_PORT = 11222 + @@xsite.site1.jdg1.offset@@))
 ((JDG2_PORT = 11222 + @@xsite.site1.jdg2.offset@@))

@@ -1,6 +1,6 @@
 export IP=@@xsite.site1.ip@@
 export OFFSET=@@xsite.site1.eap.offset@@
-export EAP_HOME=@@rhq.deploy.dir@@/jboss-eap-6.4
+export EAP_HOME=@@rhq.deploy.dir@@/@@eap.folder.name@@
 
 ((MGMT_PORT = 9999 + OFFSET))
 

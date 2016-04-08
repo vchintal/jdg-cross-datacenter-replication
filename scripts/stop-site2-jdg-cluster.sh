@@ -1,6 +1,6 @@
 export IP=@@xsite.site2.ip@@
 export OFFSETS="@@xsite.site2.jdg1.offset@@ @@xsite.site2.jdg2.offset@@ @@xsite.site2.jdg3.offset@@"
-export EAP_HOME=@@rhq.deploy.dir@@/jboss-eap-6.4
+export EAP_HOME=@@rhq.deploy.dir@@/@@eap.folder.name@@
 
 for OFFSET in $OFFSETS; do
 	((MGMT_PORT = 9999 + OFFSET))

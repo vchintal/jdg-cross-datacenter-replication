@@ -57,7 +57,7 @@
                 <formatter>
                     <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
                 </formatter>
-                <file relative-to="jboss.server.log.dir" path="${jdg.log.filename:server.log}"/>
+                <file relative-to="jboss.server.log.dir" path="server.log"/>
                 <suffix value=".yyyy-MM-dd"/>
                 <append value="true"/>
             </periodic-rotating-file-handler>
@@ -102,7 +102,7 @@
         </subsystem>
         <subsystem xmlns="urn:infinispan:server:core:6.4" default-cache-container="clustered">
             <cache-container name="clustered" default-cache="default" statistics="true">
-                <transport executor="infinispan-transport" lock-timeout="60000" cluster="site-2" stack="relay"/>
+                <transport executor="infinispan-transport" lock-timeout="60000"/>
                 <distributed-cache name="default" mode="SYNC" segments="20" owners="2" remote-timeout="30000" start="EAGER">
                     <locking acquire-timeout="30000" concurrency-level="1000" striping="false"/>
                     <transaction mode="NONE"/>
@@ -112,13 +112,6 @@
                     <transaction mode="NONE"/>
                 </distributed-cache>
                 <distributed-cache name="namedCache" mode="SYNC" start="EAGER"/>
-                <distributed-cache name="labCache" mode="SYNC" owners="2" remote-timeout="30000" start="EAGER">
-                    <locking isolation="READ_COMMITTED" acquire-timeout="30000" concurrency-level="1000" striping="false"/>
-                    <transaction mode="NONE"/>
-                    <backups>
-                        <backup site="site-1" failure-policy="${jdg.backup.failure.policy:WARN}" enabled="true" strategy="${jdg.backup.strategy:SYNC}" timeout="10000"/>
-                    </backups>
-                </distributed-cache>
             </cache-container>
             <cache-container name="security"/>
         </subsystem>
@@ -157,25 +150,6 @@
                 <protocol type="UFC"/>
                 <protocol type="MFC"/>
                 <protocol type="FRAG2"/>
-            </stack>
-            <stack name="relay">
-                <transport type="UDP" socket-binding="jgroups-udp"/>
-                <protocol type="PING"/>
-                <protocol type="MERGE3"/>
-                <protocol type="FD_SOCK" socket-binding="jgroups-udp-fd"/>
-                <protocol type="FD_ALL"/>
-                <protocol type="VERIFY_SUSPECT"/>
-                <protocol type="pbcast.NAKACK2"/>
-                <protocol type="UNICAST3"/>
-                <protocol type="pbcast.STABLE"/>
-                <protocol type="pbcast.GMS"/>
-                <protocol type="UFC"/>
-                <protocol type="MFC"/>
-                <protocol type="FRAG2"/>
-                <relay site="site-2">
-                    <remote-site name="site-1" stack="tcp" cluster="global"/>
-                    <property name="relay_multicasts">false</property>
-                </relay>
             </stack>
             <stack name="tcp">
                 <transport type="TCP" socket-binding="jgroups-tcp"/>
@@ -318,7 +292,7 @@
         <socket-binding name="hotrod" interface="management" port="11222"/>
         <socket-binding name="http" port="8080"/>
         <socket-binding name="https" port="8443"/>
-        <socket-binding name="jgroups-mping" port="0" multicast-address="234.99.54.14" multicast-port="12000" fixed-port="true"/>
+        <socket-binding name="jgroups-mping" port="0" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45700"/>
         <socket-binding name="jgroups-tcp" port="7600"/>
         <socket-binding name="jgroups-tcp-fd" port="57600"/>
         <socket-binding name="jgroups-udp" port="55200" multicast-address="${jboss.default.multicast.address:234.99.54.14}" multicast-port="45688"/>

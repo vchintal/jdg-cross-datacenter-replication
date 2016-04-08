@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="jdg-cross-datacenter-replication-bundle" default="main" xmlns:rhq="antlib:org.rhq.bundle">
     <taskdef resource="net/sf/antcontrib/antlib.xml"/>
-    <rhq:bundle name="cross-datacenter-replication-bundle" version="1.0" description="JDG 6.4 Cross Datacenter Replication Bundle">
+    <rhq:bundle name="cross-datacenter-replication-bundle" version="1.0" description="JDG 6.6 Cross Datacenter Replication Bundle">
         <rhq:input-property 
             name="xsite.site1.ip" 
             description="The IP address of Site 1" 
@@ -169,15 +169,45 @@
             required="true" 
             defaultValue="${xsite.site2.backup_failure_policy}" 
             type="string" />   
+	 
+       <rhq:input-property 
+            name="eap.folder.name" 
+            description="Folder name for EAP depending on the release" 
+            required="true" 
+            defaultValue="${eap.folder.name}" 
+            type="string" />   
 			        
+       <rhq:input-property 
+            name="jdg.folder.name" 
+            description="Folder name for JDG depending on the release" 
+            required="true" 
+            defaultValue="${jdg.folder.name}" 
+            type="string" />   
+
+       <rhq:input-property 
+            name="eap.binary.name" 
+            description="Binary (.zip) name for EAP depending on the release" 
+            required="true" 
+            defaultValue="${eap.binary.name}" 
+            type="string" />   
+			        
+       <rhq:input-property 
+            name="jdg.binary.name" 
+            description="Binary (.zip) name for JDG depending on the release" 
+            required="true" 
+            defaultValue="${jdg.binary.name}" 
+            type="string" />   
+
+
+
         <rhq:deployment-unit name="cross-datacenter-replication" preinstallTarget="preinstall" postinstallTarget="postinstall" compliance="full">
-            <rhq:archive name="binaries/jboss-datagrid-6.4.0-server.zip" exploded="true"/>
-            <rhq:archive name="binaries/jboss-eap-6.4.0.zip" exploded="true"/>
+            <rhq:archive name="binaries/${jdg.binary.name}" exploded="true"/>
+            <rhq:archive name="binaries/${eap.binary.name}" exploded="true"/>
             
-            <rhq:file name="configuration/eap-standalone.xml" destinationFile="${rhq.deploy.dir}/jboss-eap-6.4/standalone/configuration/eap-standalone.xml" replace="true" />
+            <rhq:file name="configuration/eap-standalone.xml" destinationFile="${rhq.deploy.dir}/${eap.folder.name}/standalone/configuration/eap-standalone.xml" replace="true" />
             
-            <rhq:file name="configuration/jdg-site-1.xml" destinationFile="${rhq.deploy.dir}/jboss-datagrid-6.4.0-server/standalone/configuration/jdg-site-1.xml" replace="true" />
-            <rhq:file name="configuration/jdg-site-2.xml" destinationFile="${rhq.deploy.dir}/jboss-datagrid-6.4.0-server/standalone/configuration/jdg-site-2.xml" replace="true" />
+            <rhq:file name="configuration/jdg-site-1.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-1.xml" replace="true" />
+            <rhq:file name="configuration/jdg-site-2.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-2.xml" replace="true" />
             
             <rhq:file name="scripts/pump-data-into-site1-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site1-via-hotrod.sh" replace="true" />
             <rhq:file name="scripts/pump-data-into-site2-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site2-via-hotrod.sh" replace="true" />
@@ -210,28 +240,38 @@
 
     <target name="preinstall">
         <echo>Downloading the shared cross-site-required-archives.zip into ${rhq.deploy.dir}/binaries</echo>
+        <!--
         <get src="https://drive.google.com/uc?export=download&amp;id=0BxJhoZ1V34QHZ1Fpek9mU0Z1Smc"
             verbose="true" 
             usetimestamp="true"
             skipexisting="true"
             dest="binaries/cross-site-required-archives.zip"/>            
         <unzip src="binaries/cross-site-required-archives.zip" dest="binaries"/>
+        -->
     </target>
     
     <target name="postinstall">
-        <copy file="binaries/jdg-visualizer.war" todir="${rhq.deploy.dir}/jboss-eap-6.4/standalone/deployments"/>
-        <touch file="${rhq.deploy.dir}/jboss-eap-6.4/standalone/deployments/jdg-visualizer.war.dodeploy"/>
+        <copy file="binaries/jdg-visualizer.war" todir="${rhq.deploy.dir}/${eap.folder.name}/standalone/deployments"/>
+        <touch file="${rhq.deploy.dir}/${eap.folder.name}/standalone/deployments/jdg-visualizer.war.dodeploy"/>
         <mkdir dir="${rhq.deploy.dir}/runtime"/>
         
-        <copy todir="${rhq.deploy.dir}/runtime/eap6-standalone">
-          <fileset dir="${rhq.deploy.dir}/jboss-eap-6.4/standalone"/>
+        <copy todir="${rhq.deploy.dir}/runtime/site1-eap6-standalone">
+          <fileset dir="${rhq.deploy.dir}/${eap.folder.name}/standalone">
+                <exclude name="tmp/"/>
+          </fileset>
+        </copy>
+        <copy todir="${rhq.deploy.dir}/runtime/site2-eap6-standalone">
+          <fileset dir="${rhq.deploy.dir}/${eap.folder.name}/standalone">
+                <exclude name="tmp/"/>
+          </fileset>
         </copy>
         
         <copy todir="${rhq.deploy.dir}/runtime/jdg-standalone">
-          <fileset dir="${rhq.deploy.dir}/jboss-datagrid-6.4.0-server/standalone"/>
+          <fileset dir="${rhq.deploy.dir}/${jdg.folder.name}/standalone"/>
         </copy>
         
-        <copy file="configuration/mgmt-users.properties" todir="${rhq.deploy.dir}/runtime/eap6-standalone/configuration" overwrite="true"/>
+        <copy file="configuration/mgmt-users.properties" todir="${rhq.deploy.dir}/runtime/site1-eap6-standalone/configuration" overwrite="true"/>
+        <copy file="configuration/mgmt-users.properties" todir="${rhq.deploy.dir}/runtime/site2-eap6-standalone/configuration" overwrite="true"/>
         <copy file="configuration/mgmt-users.properties" todir="${rhq.deploy.dir}/runtime/jdg-standalone/configuration" overwrite="true"/>        
         <chmod perm="ugo+rx">
             <fileset dir="${rhq.deploy.dir}">
