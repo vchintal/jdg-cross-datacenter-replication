@@ -198,7 +198,11 @@
             defaultValue="${jdg.binary.name}" 
             type="string" />   
 
-
+       <rhq:input-property 
+            name="jgroups.stack" 
+            description="JGroups stack (tcp/udp) to use" required="true" 
+            defaultValue="${jgroups.stack}" 
+            type="string" />   
 
         <rhq:deployment-unit name="cross-datacenter-replication" preinstallTarget="preinstall" postinstallTarget="postinstall" compliance="full">
             <rhq:archive name="binaries/${jdg.binary.name}" exploded="true"/>
@@ -208,6 +212,8 @@
             
             <rhq:file name="configuration/jdg-site-1.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-1.xml" replace="true" />
             <rhq:file name="configuration/jdg-site-2.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-2.xml" replace="true" />
+            <rhq:file name="configuration/jdg-site-1-tcp.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-1-tcp.xml" replace="true" />
+            <rhq:file name="configuration/jdg-site-2-tcp.xml" destinationFile="${rhq.deploy.dir}/${jdg.folder.name}/standalone/configuration/jdg-site-2-tcp.xml" replace="true" />
             
             <rhq:file name="scripts/pump-data-into-site1-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site1-via-hotrod.sh" replace="true" />
             <rhq:file name="scripts/pump-data-into-site2-via-hotrod.sh" destinationFile="${rhq.deploy.dir}/scripts/pump-data-into-site2-via-hotrod.sh" replace="true" />
@@ -240,14 +246,12 @@
 
     <target name="preinstall">
         <echo>Downloading the shared cross-site-required-archives.zip into ${rhq.deploy.dir}/binaries</echo>
-        <!--
         <get src="https://drive.google.com/uc?export=download&amp;id=0BxJhoZ1V34QHZ1Fpek9mU0Z1Smc"
             verbose="true" 
             usetimestamp="true"
             skipexisting="true"
             dest="binaries/cross-site-required-archives.zip"/>            
         <unzip src="binaries/cross-site-required-archives.zip" dest="binaries"/>
-        -->
     </target>
     
     <target name="postinstall">
