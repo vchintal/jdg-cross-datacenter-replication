@@ -162,7 +162,7 @@
                 <transport type="TCP" socket-binding="jgroups-tcp"/>
                 <protocol type="TCPPING">
                     <property name="initial_hosts">
-                        127.0.0.1[7800],127.0.0.1[7900],127.0.0.1[8000]
+                       ${site1.tcp.cluster} 
                     </property>
                 </protocol>
                 <protocol type="MERGE3"/>
@@ -186,7 +186,7 @@
                 <transport type="TCP" socket-binding="jgroups-tcp"/>
                 <protocol type="TCPPING">
                     <property name="initial_hosts">
-                        127.0.0.1[8100],127.0.0.1[8200],127.0.0.1[833300]
+                       ${site2.tcp.cluster} 
                     </property>
                 </protocol>
                 <protocol type="MERGE3"/>
